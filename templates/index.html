@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block body %}
+<script type="text/javascript">
+  $(function() {
+    var submit_form = function(e) {
+      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+        a: $('input[name="a"]').val(),
+        b: $('input[name="b"]').val()
+      }, function(data) {
+        $('#result').text(data.result);
+        $('input[name=a]').focus().select();
+      });
+      return false;
+    };
+
+    $('a#calculate').bind('click', submit_form);
+
+    $('input[type=text]').bind('keydown', function(e) {
+      if (e.keyCode == 13) {
+        submit_form(e);
+      }
+    });
+
+    $('input[name=a]').focus();
+  });
+</script>
+<h1>Bday problem calculator</h1>
+    <br><br>
+<div>
+  <label>Number of people: &nbsp</label> <input type="text" size="5" name="a">
+    <br><br>
+  <label>Max number of days apart: &nbsp</label> <input type="text" size="5" name="b">
+    <br><br>
+  <label>Propability: &nbsp</label><span id="result">?</span>
+<br><br>
+</div><a href=# id="calculate">calculate server side</a>
+{% endblock %}
