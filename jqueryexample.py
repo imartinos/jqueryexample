@@ -35,6 +35,9 @@ def bday_numbers():
     # print np.diff(np.sort(data, axis=1))
     # print np.diff(np.sort(data, axis=1)).min(axis=1)
     result = np.diff(np.sort(data, axis=1)).min(axis=1)
+
+    #In order to take into account cases like two people having birthdays one day apart
+    #Dec 31st and Jan 1st we need to subtract half a year from differnces that are greater than that
     result = np.absolute(result - ((result > wrap_days).astype(int) * number_of_days))
     # print result
     # print wrap_days
